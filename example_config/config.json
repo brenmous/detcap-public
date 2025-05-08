@@ -1,0 +1,52 @@
+{
+    "defaults": {
+            "metric": "mla",
+            "magnitude_scale_lower": 0,
+            "magnitude_scale_upper": 6,
+            "magnitude_scale_interval": 0.2,
+            "latency_scale_lower": 0,
+            "latency_scale_upper": 600,
+            "latency_scale_interval": 30,
+            "skip_upload": "True",
+            "skip_upload_frequency": 10
+    },
+    "maps": {
+	"Australia": {
+		"east": 157,
+		"south": -45,
+                "west": 107,
+		"north": -9,
+		"resolution": 1,
+		"metric": "mla",
+		"n_stations": 6,
+		"magnitude_scale_lower": 0,
+		"magnitude_scale_upper": 6,
+		"magnitude_scale_interval": 0.2,
+		"latency_scale_lower": 0,
+		"latency_scale_upper": 600,
+		"latency_scale_interval": 30,
+		"whitelist": "local.txt",
+                "blacklist": "local_exclusions.txt",
+		"skip_upload": true,
+                "alerts": {}
+        },
+        "Global": {
+                "east": 180,
+                "south": -90,
+                "west": -180,
+                "north": 90,
+                "resolution": 5,
+                "metric": "mb",
+                "n_stations": 10,
+                "magnitude_scale_lower": 3,
+                "magnitude_scale_upper": 9,
+                "magntidue_scale_interval": 0.2,
+                "latency_scale_lower": 0,
+                "latency_scale_upper": 1200,
+                "latency_scale_interval": 60,
+                "whitelist": "global.txt",
+                "blacklist": "global_exclusions.txt",
+                "skip_upload": true
+        }
+    }
+}

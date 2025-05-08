@@ -1,0 +1,79 @@
+Installation
+============
+
+Tested with Python 3.7 and 3.8. May work with other versions of Python 3.
+Will definitely not work with Python 2.
+
+There are two parts to Detcap: the processing backend (detcap) and
+the web server (detcap_web_server).
+
+I'm the only person that's ever had to install this, so if you try
+and there's problems (which wouldn't be a surprise), email me at
+brenainn.moushall@ga.gov.au.
+
+Processing backend
+------------------
+Clone detcap:
+
+.. code::
+
+    git clone git@bitbucket.org:geoscienceaustralia/neac-detcap
+
+and install with pip:
+
+.. code::
+    
+    pip install .
+
+Webserver
+---------
+Intended to be run on an EC2 instance on the NEAC infrastructure.
+
+The full process for building and deploying from scratch (assuming
+you start in the root repository directory):
+
+.. code::
+
+    cd infrastructure
+    . setup.sh <nonprod|prod> [optional namespace]
+    cd terraform/permanent
+    terraform apply
+    cd ../../packer
+    ./build.sh
+    cd ../docker
+    ./build.sh
+    cd ../terraform/ephemeral
+    terraform apply
+
+This will get you from zero to a running detcap server in about
+20 minutes.
+
+What does that do?
+~~~~~~~~~~~~~~~~~~
+``setup.sh`` takes care of setting required environment variables,
+initialising a Terraform workspace for your chosen account and namespace,
+and generating EC2 user data.
+
+You need to source it before doing anything else.
+
+The first argument is AWS account: ``nonprod`` for ga-eatws-nonprod and
+``prod`` for ga-eatws-prod.
+
+The second is an optional namespace, e.g. ``dev``. All resources will
+be assigned to this namespace, e.g. the webserver will serve content
+at ``eatws-dev.eatws-nonprod.net``. Leave blank for a prod deployment.
+
+The ``permanent`` directory in ``terraform`` creates infrastructure that
+only needs to exist once per ``account`` + ``namespace`` combination.
+You need to create this before building the Docker image.
+
+``docker/build.sh`` builds and pushes a Docker image to our ECR. This
+is an image of the detcap processing backend (the application within
+``detcap/``) and containers are launched on the webserver to run instances
+of detcap.
+
+``packer/build.sh`` builds the webserver AMI that will be deployed on our
+EC2. This is the Flask application stored in ``web/``.
+ 
+Once all the prerequisites are in place, ``terraform/ephemeral`` will
+build the per-deployment resources, such as the EC2 and the load balancer.

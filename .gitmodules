@@ -1,0 +1,3 @@
+[submodule "web/src/detcap_web_server/static/detcap-leaflet"]
+	path = web/src/detcap_web_server/static/detcap-leaflet
+	url = https://bitbucket.org/geoscienceaustralia/detcap-leaflet

@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operation &mdash; Detcap 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=51b770b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Interface" href="ui.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Detcap
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-detcap">Running Detcap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-file">Config File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#alerting">Alerting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#regional">Regional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#station">Station</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#blacklisting-and-whitelisting">Blacklisting and Whitelisting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#whitelist-blacklist-interaction">Whitelist/Blacklist interaction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#magnitude-and-latency-contours">Magnitude and Latency contours</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#explanation">Explanation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stations">Stations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metadata">Metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Detcap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Operation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/operation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="operation">
+<h1>Operation<a class="headerlink" href="#operation" title="Link to this heading"></a></h1>
+<p>This is for the backend, for help with the website interface,
+see <a class="reference internal" href="ui.html#user-interface"><span class="std std-ref">User Interface</span></a>.</p>
+<section id="running-detcap">
+<h2>Running Detcap<a class="headerlink" href="#running-detcap" title="Link to this heading"></a></h2>
+<p>Installing detcap will place a <code class="docutils literal notranslate"><span class="pre">detcap</span></code> executable in your PATH.
+Try running <code class="docutils literal notranslate"><span class="pre">detcap</span></code> on your command line.</p>
+<p><code class="docutils literal notranslate"><span class="pre">detcap</span> <span class="pre">--help</span></code> will show some options related to logging.</p>
+<p>There’s one subcommand available, <code class="docutils literal notranslate"><span class="pre">monitor</span></code>. This launches detcap
+and begins processing. It will gather data and generate new outputs
+every minute. Try <code class="docutils literal notranslate"><span class="pre">detcap</span> <span class="pre">monitor</span> <span class="pre">--help</span></code>.</p>
+<p>The options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">--seedlink-server</span></code>: The seedlink server to source data
+from, e.g. “localhost:18000” if you had one running locally. If
+blank, this will default to IRIS. I don’t recommend this as it’s slow
+and we are definitely over whatever rate limit IRIS stipulates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span></code>, <code class="docutils literal notranslate"><span class="pre">--inventory</span></code>: A StationXML inventory file. Detcap needs
+response-level metadata to work. If this isn’t provided, the inventory
+is fetched from FDSN. If provided but doesn’t exist, the inventory
+is fetched from FDSN and stored to this file for later use. Note
+fetching inventory can take upwards of 10 minutes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-f</span></code>, <code class="docutils literal notranslate"><span class="pre">--fdsn-server</span></code>: The FDSN server to fetch inventory from.
+Not required if you provide an inventory file. This is with protocol,
+e.g. “<a class="reference external" href="http://localhost:8081">http://localhost:8081</a>” for a locally running FDSN server. If
+blank, IRIS is used. See note on IRIS and Seedlink server above.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code>, <code class="docutils literal notranslate"><span class="pre">--tag</span></code>: If provided, this will be appended to outputs.
+Helpful when you’re running multiple instances on the same
+config file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span></code>, <code class="docutils literal notranslate"><span class="pre">--save-dir</span></code>: The directory to save outputs to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code>, <code class="docutils literal notranslate"><span class="pre">--redis-db</span></code>: An alternative backend to save outputs to.
+Provide the integer of a Redis database to store the output to.</p></li>
+</ul>
+<p>Finally you will need to provide a config file as an argument.</p>
+</section>
+<section id="config-file">
+<h2>Config File<a class="headerlink" href="#config-file" title="Link to this heading"></a></h2>
+<p>The config file is in JSON. An example exists at <code class="docutils literal notranslate"><span class="pre">neac-detcap/neac/config.json</span></code>.</p>
+<p>The dictionary <code class="docutils literal notranslate"><span class="pre">default</span></code> contains some default values. If any of
+these are omitted from a map config, they will source their value from
+here.</p>
+<p>The following dictionary <code class="docutils literal notranslate"><span class="pre">map</span></code> contains subdictionaries. Each of these
+is a map config (keyed by the desired map name) and contains a map
+config.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">east</span></code>, <code class="docutils literal notranslate"><span class="pre">south</span></code>, <code class="docutils literal notranslate"><span class="pre">west</span></code>, <code class="docutils literal notranslate"><span class="pre">north</span></code>: bounds of the map. Defines
+the area the map covers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolution</span></code>: The resolution in degrees of the grid overlaid on the
+map. Each <code class="docutils literal notranslate"><span class="pre">resolution</span></code> by <code class="docutils literal notranslate"><span class="pre">resolution</span></code> grid cell is a geographic
+point that will have a metric calculated for it. The centre of each
+cell is the origin, i.e. the metric will be calculated at that exact
+point and interpolated over the rest of the cell by contouring. Detcap
+does its best to fit cells given your bounds and resolution but will
+truncate the number of cells if required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metric</span></code>: The magnitude metric we are calculating. Currently only
+<code class="docutils literal notranslate"><span class="pre">mla</span></code> (Australian local magnitude) and <code class="docutils literal notranslate"><span class="pre">mb</span></code> (body magnitude) are
+supported. Note <code class="docutils literal notranslate"><span class="pre">mla</span></code> will only cover the Australian continent,
+regardless of if your selected coverage are extends beyond it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_stations</span></code>: The number of stations your system requires to make
+a reliable detection. For example, you may set this to the number
+of phases required for SeisComP to make an automatic detection. This
+defines how many stations are involved in calculating a value for
+each cell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude_cmap</span></code>: The colour map to use for the metric contours.
+Any matplotlib compatible colour map can be used, see the
+<a class="reference external" href="http://matplotlib.org/stable/gallery/color/colormap_reference.html">reference</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude_scale_lower</span></code>: The minimum of the colormap scale. A value
+in units of the metric (mla for <code class="docutils literal notranslate"><span class="pre">mla</span></code>, mb for <code class="docutils literal notranslate"><span class="pre">mb</span></code>). Values below this
+will be shown as light grey.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude_scale_upper</span></code>: Same as above but for the maximum. Values
+above this are shown as dark grey.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude_scale_interval</span></code>: The steps of the contouring. Example:
+if you selected a lower of 0 and an upper of 4 and an interval of 1,
+the contours would display [0 to 1, 1 to 2, 2 to 3, 3 to 4].</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latency_scale_lower</span></code>, <code class="docutils literal notranslate"><span class="pre">latency_scale_upper</span></code>, <code class="docutils literal notranslate"><span class="pre">latency_scale_interval</span></code>:
+Same as for magnitude. The units are seconds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whitelist</span></code>, <code class="docutils literal notranslate"><span class="pre">blacklist</span></code>: See <a class="reference internal" href="#station-filtering"><span class="std std-ref">Blacklisting and Whitelisting</span></a> below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">station_good_color</span></code>: Stations that are working will be displayed
+in this colour.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">station_bad_color</span></code>: Stations that are not working (no data received)
+will be displayed in this colour.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">station_bad_color</span></code>: Stations that are working but outputting bad
+data will be displayed in this colour.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip_upload</span></code>: If True, upload the outputs to SKIP. You will need
+to set <code class="docutils literal notranslate"><span class="pre">SKIP_URL</span></code> and <code class="docutils literal notranslate"><span class="pre">SKIP_API_KEY</span></code> as environment variables
+to access SKIP.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip_upload_freq_alert</span></code>:  When in alert (see <a class="reference internal" href="#alerting"><span class="std std-ref">Alerting</span></a> below),
+the output will be uploaded to SKIP after this many update cycles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip_upload_freq_nominal</span></code>: When not in alert, the output will be
+uploaded to SKIP after this many update cycles.</p></li>
+</ul>
+</section>
+</section>
+<section id="alerting">
+<h2>Alerting<a class="headerlink" href="#alerting" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">alerts</span></code> parameter is a dictionary specified as map parameter,
+each alert being a dictionary keyed by its name.
+There’s an example of configuring alerts in <code class="docutils literal notranslate"><span class="pre">detcap/neac/config_alert_example.json</span></code>.</p>
+<p>Alerts, and whether they are active, are written to the output
+metadata. See <a class="reference internal" href="#outputs"><span class="std std-ref">Outputs</span></a>.</p>
+<p>There are two types of alert:</p>
+<section id="regional">
+<h3>Regional<a class="headerlink" href="#regional" title="Link to this heading"></a></h3>
+<p>Alerts on the metric value in a particular region.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">region</span></code>: A geosjon polygon defining the area of interest.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: “magnitude” or “latency”. The metric value to
+alert on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calculator</span></code>: How to derive a single value from all metric values
+within the region specified. Current choices are “max” and “min”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">limit</span></code>: The threshold of the alert.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comparator</span></code>: how to compare the value from <code class="docutils literal notranslate"><span class="pre">calculator</span></code> against
+<code class="docutils literal notranslate"><span class="pre">limit</span></code>. Choices are “&gt;”, “&lt;”, “&gt;=”, “&lt;=”. “==”, “!=”.
+If <code class="docutils literal notranslate"><span class="pre">&lt;calculated_vale&gt;</span> <span class="pre">&lt;comparator&gt;</span> <span class="pre">&lt;limit&gt;</span></code> is True, the alert
+is triggered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">messsage</span></code>: An optional description for the alert.</p></li>
+</ul>
+</section>
+<section id="station">
+<h3>Station<a class="headerlink" href="#station" title="Link to this heading"></a></h3>
+<p>Alerts on the percentage of stations that are “down” (no data received).</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>I just realised on writing this that there’s a bug. Stations will
+be double counted in cases of e.g. [AU, AU.AS] - woops!</p>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: Only <code class="docutils literal notranslate"><span class="pre">station_status</span></code> is applicable. This defines a
+station-level alert.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">limit</span></code>: An alert threshold as a percentage from 0 to 100.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comparator</span></code>: How to compare the percentage of downed stations
+to the provided <code class="docutils literal notranslate"><span class="pre">limit</span></code>. Same choices as regional alerts.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">network_codes</span></code>: A list of networks/stations to include in the alert.
+This works as prefix, e.g. if you specify <code class="docutils literal notranslate"><span class="pre">[AU]</span></code>, the alert will
+act on all AU stations. If you specify <code class="docutils literal notranslate"><span class="pre">[AU.AS]</span></code>, the alert will
+act on the Alice Springs array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>: An optional description for the alert.</p></li>
+</ul>
+<p>Note that station is only considered down if all of its channels are
+offline.</p>
+</section>
+</section>
+<section id="blacklisting-and-whitelisting">
+<span id="station-filtering"></span><h2>Blacklisting and Whitelisting<a class="headerlink" href="#blacklisting-and-whitelisting" title="Link to this heading"></a></h2>
+<p>Optional blacklist and whitelist files can be provided as part of a
+config. These files contain lists of regex strings. Any station
+that matches any of the regexes will be excluded from monitoring.</p>
+<p>An example of a blacklist to simulate a USGS outage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>^AV.*$
+^C0.*$
+^CU.*$
+^GS.*$
+^HV.*$
+^IC.*$
+^IU.*$
+^IW.*$
+^MI.*$
+^N4.*$
+^NE.*$
+^US.*$
+</pre></div>
+</div>
+<p>An example of a whitelist:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>^AU.MBWA.*$
+^AU.GIRL.*$
+^AU.FITZ.$
+</pre></div>
+</div>
+<p>In this case, only Marble Bar, Giralia and Fitzory Crossing
+will be monitored, everything else will be excluded.</p>
+<section id="whitelist-blacklist-interaction">
+<h3>Whitelist/Blacklist interaction<a class="headerlink" href="#whitelist-blacklist-interaction" title="Link to this heading"></a></h3>
+<p>The behaviour is modified if you include both a blacklist and whitelist.
+In this scenario, stations are excluded by the blacklist, except for
+those present in the whitelist, i.e. the whitelist becomes a list of
+exception rules for the blacklist.</p>
+<p>This is useful, for example, if you wanted to exclude all of a network
+but keep a handful of that network’s stations, without excluding
+all other networks. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Blacklist:
+^AU.*$
+
+# Whitelist:
+^AU.MBWA.*$
+^AU.GIRL.*$
+^AU.FITZ.$
+</pre></div>
+</div>
+<p>In the above example, every network except AU will be included,
+with the exception of Marble Bar, Giralia and Fitzroy crossing.</p>
+</section>
+</section>
+<section id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Link to this heading"></a></h2>
+<p>Each map has two output files, generated after each update cycle:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Map</span> <span class="pre">name&gt;_map_&lt;time&gt;.json</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Map</span> <span class="pre">name&gt;_metadata_&lt;time&gt;.png</span></code></p></li>
+</ul>
+<p>The map data is five collections of geojson:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude</span></code>: magnitude contours.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">magnitude_explanation</span></code>: the stations and values involved in calculating
+the magnitude for a coordinate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latency</span></code>: latency contours.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latency_explanation</span></code>: the stations and values involved in calculating
+the latency for a coordinate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stations</span></code>: station coordinates with some station performance data.</p></li>
+</ul>
+<section id="magnitude-and-latency-contours">
+<h3>Magnitude and Latency contours<a class="headerlink" href="#magnitude-and-latency-contours" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">magnitude</span></code> and <code class="docutils literal notranslate"><span class="pre">latency</span></code> are collections of MultiPolygons describing
+contours, with some additional properties for styling:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">level</span></code> (str): of the format “&lt;contour_lower&gt; to &lt;contour_upper&gt; &lt;units&gt;”
+and is used for displaying the value of a contour area on the map.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weight</span></code> (int): line weight for the contour boundaries.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code> (str): Hex code of the contour boundary colour.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">opacity</span></code> (float, 0 to 1): opacity of the contour boundary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillColor</span></code> (str): Hex code of the contour area colour.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillOpacity</span></code> (float, 0 to 1): opacity of the contour area.</p></li>
+</ul>
+</section>
+<section id="explanation">
+<h3>Explanation<a class="headerlink" href="#explanation" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">explanation</span></code> data contains a FeatureCollection for each coordinate
+of the map, containing:</p>
+<ul class="simple">
+<li><p>A polygon describing the cell of the map grid (e.g. a &lt;resolution&gt; x &lt;resolution&gt;
+cell centred on the coordinate).</p>
+<ul>
+<li><p>has property <code class="docutils literal notranslate"><span class="pre">type</span></code> (str) of “coordinate” to help distinguish
+the feature when rendering a map.</p></li>
+</ul>
+</li>
+</ul>
+<p>For each of the <cite>n</cite> stations used for the coordinate:</p>
+<ul>
+<li><p>A LineString from the station to the coordinate.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>has property <code class="docutils literal notranslate"><span class="pre">type</span></code> (str) of “distance” to help distinguish
+the feature when rendering a map.</p></li>
+<li><p>has property <code class="docutils literal notranslate"><span class="pre">travel_time</span></code> (float) for latency and <code class="docutils literal notranslate"><span class="pre">attenuation</span></code> (float)
+for magnitude. This is the travel time or attenuation from the coordinate
+to the station that is added to the station’s reading.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>A Point showing the station’s coordinates.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>has property <code class="docutils literal notranslate"><span class="pre">type</span></code> (str) of “station” to help distinguish
+the feature when rendering a map.</p></li>
+<li><p>has property <code class="docutils literal notranslate"><span class="pre">latency</span></code> (float) for latency and <code class="docutils literal notranslate"><span class="pre">snr_mag</span></code> (float) for
+magnitude. This is the value observed on the station for the respective
+metric (<code class="docutils literal notranslate"><span class="pre">latency</span></code> being average delay between consecutive waveform packets,
+<code class="docutils literal notranslate"><span class="pre">snr_mag</span></code> being average of peak-to-peak simulated ampliude * signal-to-noise ratio).</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="stations">
+<h3>Stations<a class="headerlink" href="#stations" title="Link to this heading"></a></h3>
+<p>A FeatureCollection of Points, each point being the coordinates of a station.
+Has properties:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (str): the station name (&lt;NET&gt;.&lt;STA&gt;)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">channel_status</span></code> (dict): a dictionary mapping channel code to its status.
+Status is a dictionary of <code class="docutils literal notranslate"><span class="pre">status</span></code> (str), a status label (see below), and
+<code class="docutils literal notranslate"><span class="pre">message</span></code> (str), an English explanation of what the status means.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code> (str): Hex code of the station colour (determined by its status).</p></li>
+</ul>
+<p>The possible status codes are:</p>
+<ul class="simple">
+<li><p>“Bad data”: the data recieved for this channel is obviously in error (e.g.
+all zero amplitude).</p></li>
+<li><p>“No data”: this channel had no data present for the requested time window (either
+it’s offline or too slow to be calculated on).</p></li>
+<li><p>“Warning”: the channel is operational but may be in error (e.g. the station’s
+reported value is outside the (interquartile range * 1.5) relative to the
+other stations in the map).</p></li>
+<li><p>“Good”: the channel reported good values, but a better channel was used.</p></li>
+<li><p>“Best”: the channel reported good values and had the best (e.g. fastest,
+least noisy) readings of all channels.</p></li>
+</ul>
+<p>The colours for each status are defined in the config. Note that a station
+that has at least one good channel will be displayed as such, even if
+other channels are in warning or considered bad. All channels need to
+be “bad” or in warning to be displayed as such.</p>
+</section>
+<section id="metadata">
+<h3>Metadata<a class="headerlink" href="#metadata" title="Link to this heading"></a></h3>
+<p>JSON object containing two fields:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code> (dict): the map parameters, containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (str): the map name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bounds</span></code>: (dict): contains the <code class="docutils literal notranslate"><span class="pre">west</span></code>, <code class="docutils literal notranslate"><span class="pre">south</span></code>, <code class="docutils literal notranslate"><span class="pre">east</span></code> and <code class="docutils literal notranslate"><span class="pre">north</span></code>
+(float) bounds of the map.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolution</span></code> (float): the resolution of the map grid.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_stations</span></code> (int): the number of stations used for each grid cell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lta_period</span></code> (float): the time window in seconds that station data is
+sampled from.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">statuses</span></code>: similar to <code class="docutils literal notranslate"><span class="pre">channel_status</span></code> for the <code class="docutils literal notranslate"><span class="pre">station</span></code> map data.
+This maps the station name to a dictionary of statuses for each of its
+channels.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ui.html" class="btn btn-neutral float-right" title="User Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Geoscience Australia.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
