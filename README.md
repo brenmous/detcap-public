@@ -1,7 +1,10 @@
 https://brenmous.github.io/detcap-public
 
 Installation is thoroughly outdated but the implementation section is still
-relevant.
+relevant. The exception is the "station selection" - this is now slightly
+different. Easy to follow in the `mb.py` and `mla.py` `station_selection`
+functions however.
+
 
 Rough guide to relevant code:
 - `app.py` has an update function, this triggers every e.g. 60 seconds
